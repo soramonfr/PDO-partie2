@@ -1,6 +1,6 @@
 <?php
 spl_autoload_register(function ($class) {
-    include 'models/' . $class . '.php';
+    include '../models/' . $class . '.php';
 });
 
 // S'il y a eu soumission de formulaire, génération des fonctions de validation
@@ -13,7 +13,7 @@ spl_autoload_register(function ($class) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Génération des regex
     // Pour la saisie d'un nom ou prénom
-    $regexName = "/^[a-zA-Zéèäëçõãê -]+$/";
+    $regexName = "/^[a-zA-Zéèäëïçõãê -]+$/";
 
     // Pour la saisie d'un numéro de téléphone avec ou sans indicatif
     $regexPhone = '/^(\+[0-9]{2,3})?([0-9]){9,15}$/';
@@ -93,5 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } else {
             $status = "❌ Des erreurs sont survenues pendant le traitement de la demande, veuillez recommencer.";
         }
+    } else {
+        $status = "❌ Veuillez compléter tous les champs avant de poursuivre.";
     }
 }

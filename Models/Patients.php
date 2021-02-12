@@ -20,6 +20,6 @@ class Patients
         $response->bindValue("birthdate", $arrayParameters["birthdate"], PDO::PARAM_STR);
         $response->bindValue("phone", $arrayParameters["phone"], PDO::PARAM_STR);
         $response->bindValue("mail", $arrayParameters["mail"], PDO::PARAM_STR);
-        $response->execute();
+        return $response->execute();
     }
 }
