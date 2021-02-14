@@ -14,9 +14,12 @@ require "Controllers/indexController.php";
 </head>
 
 <body>
-<h1 class="text-center">🥂 Pas de panique, <strong>La Clinique</strong> te donne le déclic 🍹</h1>
-<h2 class="text-center">🔥 La roue tourne, "faites vos jeux" 🔥</h2>
-<a href="Views/ajout-patient.php">💘 Lien vers l'ajout de patient</a>
+<h1 class="text-center">Bienvenue à la clinique Malartic</h1>
+<h2 class="text-center">Que souhaitez-vous faire aujourd'hui ?</h2>
+<p>
+<a href="Views/ajout-patient.php">💘 Ajouter un patient</a><br>
+<a href="Views/liste-patients.php">💘 Afficher la liste des patients</a>
+</p>
     <?php
 
     ?>
