@@ -14,7 +14,7 @@ require "../Controllers/liste-patientsController.php";
 
 <body>
 <h1 class="text-center">🔻 Liste des patients 🔻</h1>
-        <p class="text-center">Pour créer une nouvelle entrée, c'est par <a href="../Views/ajout-patient.php">ici</a> !</p>
+        <p class="text-center font-weight-bold bg-info text-white">Pour créer une nouvelle entrée, c'est par <a href="../Views/ajout-patient.php">ici</a> !</p>
     <?php
     if(!$allPatients) {
         echo "Il y a eu un problème lors de la récupération des données des patients.";

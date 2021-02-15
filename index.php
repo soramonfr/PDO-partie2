@@ -18,7 +18,9 @@ require "Controllers/indexController.php";
 <h2 class="text-center">Que souhaitez-vous faire aujourd'hui ?</h2>
 <p>
 <a href="Views/ajout-patient.php">💘 Ajouter un patient</a><br>
-<a href="Views/liste-patients.php">💘 Afficher la liste des patients</a>
+<a href="Views/liste-patients.php">💘 Afficher la liste des patients</a><br>
+<a href="Views/ajout-rdv.php">💘 Prendre un rendez-vous</a><br>
+<a href="Views/liste-rdv.php">💘 Afficher la liste des rendez-vous</a><br>
 </p>
     <?php
 

@@ -28,6 +28,11 @@ class Patients
         return $response->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function displayPatientsForAppointments() {
+        $response = $this->db->query("SELECT id, lastname, firstname FROM patients");
+        return $response->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function getPatientFileById($id) {
         $statement = $this->db->prepare("SELECT * FROM patients WHERE id = :id");
         $statement->bindValue("id", $id, PDO::PARAM_INT);
