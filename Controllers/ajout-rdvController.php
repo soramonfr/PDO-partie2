@@ -9,7 +9,6 @@ $patientManager = new Patients($database);
 $appointmentManager = new Appointments($database);
 
 $allPatients = $patientManager->displayPatientsForAppointments();
-var_dump($allPatients);
 
 // Filtrage des données potentiellement dangereuses
 // htmlspecialchars() va permettre d’échapper certains caractères spéciaux comme les chevrons « < » et « > » en les transformant en entités HTML.
@@ -30,7 +29,6 @@ function cleanData($var)
 //     if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    var_dump($_POST);
     // Génération des regex
     // Pour la saisie d'un ID
     $regexId = "/^[0-9]+$/";
