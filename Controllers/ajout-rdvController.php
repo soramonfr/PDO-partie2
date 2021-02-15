@@ -69,6 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     // Stockage des données saisies
     if (empty($arrayErrors)) {
+        // Concat Date + Heure pour matcher avec le format en BDD qui est YYYY-MM-DD HH:MM:SS
         $dateHour = $verifiedDate . " " . $verifiedHour;
         $arrayParameters = [
             "idPatients" => $verifiedId,
