@@ -24,9 +24,10 @@ require "../Controllers/liste-rdvController.php";
             $dateFormat = DateTime::createFromFormat('Y-m-d', $appointmentDetails[0]);
             $date = $dateFormat->format('d/m/Y');
             $hourFormat = DateTime::createFromFormat('H:i:s', $appointmentDetails[1]);
-            $hour = $hourFormat->format('H:i');;
+            $hour = $hourFormat->format('H:i');
             echo "<div>🔆 Date du rendez-vous : Le " . $date . $br
                 . "Heure du rendez-vous : " . $hour . $br
+                . "Nom & prénom du patient : " . $appointment["lastname"] . " " . $appointment["firstname"] . $br
                 . "<a href='/Views/profil-patient.php?idPatient=" . $appointment["idPatients"] . "'>Lien vers le profil du patient</a></div>" . $br;
         }
     }

@@ -21,7 +21,10 @@ class Appointments
     }
 
     public function displayAppointmentsList() {
-        $response = $this->db->query("SELECT * FROM appointments");
+        $response = $this->db->query("SELECT appointments.* , patients.lastname , patients.firstname
+        FROM appointments 
+        INNER JOIN patients
+            ON appointments.idPatients = patients.id");
         return $response->fetchAll(PDO::FETCH_ASSOC);
     }
 }
