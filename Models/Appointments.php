@@ -22,11 +22,35 @@ class Appointments
 
     public function displayAppointmentsList()
     {
-        $response = $this->db->query("SELECT appointments.* , patients.lastname , patients.firstname
+        $response = $this->db->query("SELECT appointments.*, patients.lastname, patients.firstname 
         FROM appointments 
         INNER JOIN patients
             ON appointments.idPatients = patients.id 
             ORDER BY appointments.dateHour");
         return $response->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function displayAppointmentDetails($id)
+    {
+        $response = $this->db->prepare("SELECT appointments.*, patients.lastname, patients.firstname, patients.birthdate, patients.mail, patients.phone
+        FROM appointments 
+        INNER JOIN patients
+            ON appointments.idPatients = patients.id
+        WHERE appointments.id = :id");
+        $response->bindValue("id", $id, PDO::PARAM_INT);
+        $response->execute();
+        return $response->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function updatePatientAppointment($arrayParameters)
+    {
+        $response = $this->db->prepare(
+            "UPDATE appointments 
+        SET dateHour = :dateHour
+        WHERE id = :id"
+        );
+        $response->bindValue("id", $arrayParameters["id"], PDO::PARAM_INT);
+        $response->bindValue("dateHour", $arrayParameters["dateHour"], PDO::PARAM_STR);
+        return $response->execute();
     }
 }

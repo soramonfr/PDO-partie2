@@ -28,7 +28,8 @@ require "../Controllers/liste-rdvController.php";
             echo "<div>🔆 Date du rendez-vous : Le " . $date . $br
                 . "Heure du rendez-vous : " . $hour . $br
                 . "Nom & prénom du patient : " . $appointment["lastname"] . " " . $appointment["firstname"] . $br
-                . "<a href='/Views/profil-patient.php?idPatient=" . $appointment["idPatients"] . "'>Lien vers le profil du patient</a></div>" . $br;
+                . "🔹 <a href='/Views/profil-patient.php?idPatient=" . $appointment["idPatients"] . "'>Lien vers le profil du patient</a>" . $br
+                . "🔹 <a href='/Views/rdv.php?idAppointment=" . $appointment["id"] . "'>Détails du rendez-vous</a></div>" . $br;
         }
     }
     ?>
