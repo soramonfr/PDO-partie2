@@ -16,7 +16,8 @@ require "../Controllers/rdvController.php";
     <div class="container">
         <h1 class="text-center">🔻 Rendez-vous programmé pour le patient 🔻</h1>
         <p class="text-info"><?= isset($status) ? $status : "" ?></p>
-        <form action="rdv.php" method="post" novalidate>
+        <form action="rdv.php?idAppointment=<?= $profilAppointment["id"] ?>" method="post" novalidate>
+        <input name="idAppointment" type="hidden" value="<?= $profilAppointment["id"] ?>">
             <h2>🕵️‍♂️ Etat civil</h2>
             <fieldset>
                 <div class="form-group">
@@ -54,14 +55,14 @@ require "../Controllers/rdvController.php";
             <h2>📅 Rendez-vous programmé</h2>
             <fieldset>
                 <div class="form-group">
-                    <label for="date">Date du rendez-vous : </label> <span class="text-danger"><?= isset($arrayErrors['date']) ? $arrayErrors['date'] : "" ?></span>
-                    <input class="form-control" required type="date" name="date" value="<?= $profilAppointment["date"] ?>" readonly>
+                    <label for="date">Date du rendez-vous : </label> <span class="text-danger"><?= isset($arrayErrors['dateHour']) ? $arrayErrors['dateHour'] : "" ?></span>
+                    <input class="form-control" required type="date" name="date" value="<?= $date ?>">
                 </div>
             </fieldset>
             <fieldset>
                 <div class="form-group">
-                    <label for="hour">Heure du rendez-vous : </label> <span class="text-danger"><?= isset($arrayErrors['hour']) ? $arrayErrors['hour'] : "" ?></span>
-                    <input class="form-control" required type="text" name="hour" value="<?= $profilAppointment["hour"] ?>" readonly>
+                    <label for="hour">Heure du rendez-vous : </label> <span class="text-danger"><?= isset($arrayErrors['dateHour']) ? $arrayErrors['dateHour'] : "" ?></span>
+                    <input class="form-control" required type="text" name="hour" value="<?= $hour ?>">
                 </div>
             </fieldset>
 

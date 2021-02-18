@@ -17,11 +17,17 @@ function cleanData($var)
 $database = new Database();
 $appointmentManager = new Appointments($database);
 
-if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+if (isset($_GET["idAppointment"])) {
     $idAppointment = cleanData($_GET["idAppointment"]);
     if (filter_var($idAppointment, FILTER_VALIDATE_INT)) {
         $profilAppointment = $appointmentManager->displayAppointmentDetails($idAppointment);
-        var_dump($profilAppointment);
+        $appointmentDetails = explode(" ", $profilAppointment["dateHour"]);
+        $dateFormat = DateTime::createFromFormat('Y-m-d', $appointmentDetails[0]);
+        $date = $dateFormat->format('Y-m-d');
+        $hourFormat = DateTime::createFromFormat('H:i:s', $appointmentDetails[1]);
+        $hour = $hourFormat->format('H:i');
+        // var_dump($profilAppointment);
+        // var_dump($date);
     } else {
         $arrayErrors["idAppointment"] = "Ce rendez-vous n'existe pas.";
     }
@@ -35,95 +41,40 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 //     if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Génération des regex
-    // Pour la saisie d'une date
-
-
-    // Pour la saisie d'une heure
-
-
-    // Pour la saisie d'un nom ou prénom
-    $regexName = "/^[a-zA-Zéèäëïçõãê -]+$/";
-
-    // Pour la saisie d'un numéro de téléphone avec ou sans indicatif
-    $regexPhone = '/^(\+[0-9]{2,3})?([0-9]){9,15}$/';
-
-    // Pour la saisie de la date de naissance
-    $regexBirthdate = "/^[1-2][0-9]{3}[-][0-1][0-9][-]([0-2][0-9]|[3][0-1])$/";
-
     // Initialisation du tableau d'erreurs
     $arrayErrors = [];
 
 
     // Application du premier filtre de sécurité
-    $id = isset($_POST["id"]) ? cleanData($_POST["id"]) : "";
-    $lastname = isset($_POST["lastname"]) ? cleanData($_POST["lastname"]) : "";
-    $firstname = isset($_POST["firstname"]) ? cleanData($_POST["firstname"]) : "";
-    $birthdate = isset($_POST["birthdate"]) ? cleanData($_POST["birthdate"]) : "";
-    $phone = isset($_POST["phone"]) ? cleanData($_POST["phone"]) : "";
-    $email = isset($_POST["mail"]) ? cleanData($_POST["mail"]) : "";
+    $id = isset($_POST["idAppointment"]) ? cleanData($_POST["idAppointment"]) : "";
     $date = isset($_POST["date"]) ? cleanData($_POST["date"]) : "";
     $hour = isset($_POST["hour"]) ? cleanData($_POST["hour"]) : "";
 
-    // Apllication du second filtre de sécurité
+    // Application du second filtre de sécurité
     if (filter_var($id, FILTER_VALIDATE_INT)) {
         $verifiedId = $id;
     } else {
         $arrayErrors['id'] = "Identifiant invalide.";
     }
 
-    if (preg_match($regexName, $lastname)) {
-        $verifiedLastname = $lastname;
+    $dateTime = date_create("$date $hour");
+    if ($dateTime) {
+        $verifiedDateHour = $dateTime;
     } else {
-        $arrayErrors['lastname'] = "Veuillez saisir un nom valide.";
+        $arrayErrors['dateHour'] = "Créneau invalide.";
     }
-
-    if (preg_match($regexName, $firstname)) {
-        $verifiedFirstname = $firstname;
-    } else {
-        $arrayErrors['firstname'] = "Veuillez saisir un prénom valide.";
-    }
-
-    if (preg_match($regexBirthdate, $birthdate)) {
-        $verifiedBirthdate = $birthdate;
-    } else {
-        $arrayErrors['birthdate'] = "Veuillez saisir une date de naissance valide.";
-    }
-
-    if (preg_match($regexPhone, $phone)) {
-        $verifiedPhone = $phone;
-    } else {
-        $arrayErrors['phone'] = "Veuillez saisir un numéro de téléphone valide.";
-    }
-
-    if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $verifiedEmail = $email;
-    } else {
-        $arrayErrors['mail'] = "Veuillez saisir une adresse mail valide.";
-    }
-
-    var_dump($_SERVER['REQUEST_URI'] . "?idPatient=$verifiedId");
 
     // Stockage des données saisies
     if (empty($arrayErrors)) {
-
         $arrayParameters = [
             "id" => $verifiedId,
-            "lastname" => $verifiedLastname,
-            "firstname" => $verifiedFirstname,
-            "birthdate" => $verifiedBirthdate,
-            "phone" => $verifiedPhone,
-            "mail" => $verifiedEmail,
-            "date" => $verifiedDate,
-            "hour" => $verifiedHour
+            "dateHour" => $verifiedDateHour->format("Y-m-d H:i:s")
         ];
-
-        $br = "<br>";
 
         if ($appointmentManager->updatePatientAppointment($arrayParameters)) {
             $status = "✅ La demande a été traitée avec succès.";
-            // Redirection vers la page du patient (cf. notion POST REDIRECT GET)
-            header("Location: " . $_SERVER['REQUEST_URI'] . "?idPatient=$verifiedId", true, 303);
+            // Redirection vers la page du rendez-vous (cf. notion POST REDIRECT GET)
+            // header("Location: " . $_SERVER['REQUEST_URI'] . "?idAppointment=$verifiedId", true, 303);
         } else {
             $status = "❌ Des erreurs sont survenues pendant le traitement de la demande, veuillez recommencer.";
         }
