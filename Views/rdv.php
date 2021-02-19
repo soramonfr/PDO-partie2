@@ -21,19 +21,19 @@ require "../Controllers/rdvController.php";
             <h2>🕵️‍♂️ Etat civil</h2>
             <fieldset>
                 <div class="form-group">
-                    <label for="name">Nom : </label> <span class="text-danger"><?= isset($arrayErrors['lastname']) ? $arrayErrors['lastname'] : "" ?></span>
+                    <label for="name">Nom : </label> 
                     <input class="form-control" required placeholder="Wonka" type="text" name="lastname" value="<?= $profilAppointment["lastname"] ?>" readonly>
                 </div>
             </fieldset>
             <fieldset>
                 <div class="form-group">
-                    <label for="firstname">Prénom : </label> <span class="text-danger"><?= isset($arrayErrors['firstname']) ? $arrayErrors['firstname'] : "" ?></span>
+                    <label for="firstname">Prénom : </label> 
                     <input class="form-control" required placeholder="Willy" type="text" name="firstname" value="<?= $profilAppointment["firstname"] ?>" readonly>
                 </div>
             </fieldset>
             <fieldset>
                 <div class="form-group">
-                    <label for="birthdate">Date de naissance : </label> <span class="text-danger"><?= isset($arrayErrors['birthdate']) ? $arrayErrors['birthdate'] : "" ?></span>
+                    <label for="birthdate">Date de naissance : </label> 
                     <input class="form-control" type="date" name="birthdate" min="1900-01-01" max="2030-12-31" value="<?= $profilAppointment["birthdate"] ?>" readonly>
                 </div>
             </fieldset>
@@ -41,13 +41,13 @@ require "../Controllers/rdvController.php";
             <h2>💌 Coordonnées</h2>
             <fieldset>
                 <div class="form-group">
-                    <label for="mail">E-mail : </label> <span class="text-danger"><?= isset($arrayErrors['mail']) ? $arrayErrors['mail'] : "" ?></span>
+                    <label for="mail">E-mail : </label>
                     <input class="form-control" required placeholder="willy.wonka@chocolate.com" type="mail" name="mail" value="<?= $profilAppointment["mail"] ?>" readonly>
                 </div>
             </fieldset>
             <fieldset>
                 <div class="form-group">
-                    <label for="phone">Téléphone : </label> <span class="text-danger"><?= isset($arrayErrors['phone']) ? $arrayErrors['phone'] : "" ?></span>
+                    <label for="phone">Téléphone : </label>
                     <input class="form-control" required placeholder="ex: 0666666666" type="tel" name="phone" value="<?= $profilAppointment["phone"] ?>" readonly>
                 </div>
             </fieldset>
