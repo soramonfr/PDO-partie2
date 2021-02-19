@@ -14,6 +14,13 @@ function cleanData($var)
     return $var;
 }
 
+// Fonction redirection en cas d'erreur
+function errorRedirect() {
+    $host  = $_SERVER['HTTP_HOST'];
+    header("Location: http://$host/Views/error.php");
+    exit;
+}
+
 $database = new Database();
 $appointmentManager = new Appointments($database);
 
@@ -23,9 +30,7 @@ if (isset($_GET["idAppointment"])) {
     if (filter_var($idAppointment, FILTER_VALIDATE_INT)) {
         $profilAppointment = $appointmentManager->displayAppointmentDetails($idAppointment);
         if ($profilAppointment === false) {
-            $host  = $_SERVER['HTTP_HOST'];
-            header("Location: http://$host/Views/error.php");
-            exit;
+            errorRedirect();
         }
         $appointmentDetails = explode(" ", $profilAppointment["dateHour"]);
         $dateFormat = DateTime::createFromFormat('Y-m-d', $appointmentDetails[0]);
@@ -34,9 +39,7 @@ if (isset($_GET["idAppointment"])) {
         $hour = $hourFormat->format('H:i');
     } else {
         $status = "Ce rendez-vous n'existe pas.";
-        $host  = $_SERVER['HTTP_HOST'];
-        header("Location: http://$host/Views/error.php");
-        exit;
+        errorRedirect();
     }
 }
 
