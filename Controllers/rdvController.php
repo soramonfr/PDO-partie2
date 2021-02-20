@@ -29,6 +29,7 @@ if (isset($_GET["idAppointment"])) {
     $idAppointment = cleanData($_GET["idAppointment"]);
     if (filter_var($idAppointment, FILTER_VALIDATE_INT)) {
         $profilAppointment = $appointmentManager->displayAppointmentDetails($idAppointment);
+        // Vérification si l'int saisi (id) est présent dans la BDD
         if ($profilAppointment === false) {
             errorRedirect();
         }
@@ -53,7 +54,6 @@ if (isset($_GET["idAppointment"])) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Initialisation du tableau d'erreurs
     $arrayErrors = [];
-
 
     // Application du premier filtre de sécurité
     $id = isset($_POST["idAppointment"]) ? cleanData($_POST["idAppointment"]) : "";
